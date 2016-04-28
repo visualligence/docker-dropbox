@@ -24,9 +24,6 @@ RUN \
   wget -O - "https://github.com/cortesi/modd/releases/download/v0.2/modd-0.2-linux64.tgz" | tar xfz - && \
   mv tmp/modd-0.2-linux64/modd /usr/local/bin && \
   rm -rf tmp && \
-  wget -O - "https://github.com/spf13/hugo/releases/download/v0.15/hugo_0.15_linux_amd64.tar.gz" | tar xfz - && \
-  mv hugo_0.15_linux_amd64/hugo_0.15_linux_amd64 /usr/local/bin/hugo && \
-  rm -rf hugo_0.15_linux_amd64 && \
   wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - -C /app
 
 RUN mkdir -p /app/.dropbox /app/Dropbox
@@ -36,5 +33,5 @@ RUN chown -R nobody:nogroup /app
 USER nobody
 
 VOLUME ["/app/.dropbox", "/app/Dropbox"]
-EXPOSE 8080
+EXPOSE 80
 CMD ["/usr/local/bin/tini", "--", "/usr/local/bin/modd"]
