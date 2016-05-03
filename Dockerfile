@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Mattias Wadman mattias.wadman@gmail.com
+MAINTAINER visualligence visualligence@visualligence.com
 
 ENV DROPBOX_FOLDER="site"
 
@@ -27,11 +27,12 @@ RUN \
   wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - -C /app
 
 RUN mkdir -p /app/.dropbox /app/Dropbox
-COPY run_hugo nginx.conf modd.conf /app/
+COPY run nginx.conf modd.conf /app/
 RUN chown -R nobody:nogroup /app
 
-USER nobody
 
 VOLUME ["/app/.dropbox", "/app/Dropbox"]
 EXPOSE 80
+
+USER root
 CMD ["/usr/local/bin/tini", "--", "/usr/local/bin/modd"]
